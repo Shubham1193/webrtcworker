@@ -46,7 +46,7 @@ const crypto = require('crypto');
       
         for (const testCase of testCases) {
           const expectedOutput = testCase.output;
-          console.log(testCase)
+          // console.log(testCase)
           const keys = Object.keys(testCase.input)
           const inputval = keys[0]
           const targetval = keys[1]
@@ -55,8 +55,8 @@ const crypto = require('crypto');
           if (targetvalue == undefined){
             targetvalue = "nothing"
           }
-          console.log(inputval , targetval)
-          console.log(inputvalue , targetvalue)
+          // console.log(inputval , targetval)
+          // console.log(inputvalue , targetvalue)
     
           let fullCode = '';
       
@@ -79,8 +79,8 @@ const crypto = require('crypto');
       
             const result = await runFileWithTimeout(fileName, language, 1000 , inputvalue , targetvalue); // 5 seconds timeout
             const trimmedResult = result.trim()
-            // console.log(`Actual Output: ${trimmedResult} expected ${expectedOutput}`); // Log the actual output for debugging
-            // console.log(`Actual Output: ${typeof trimmedResult} expected ${typeof expectedOutput}`);
+            console.log(`Actual Output: ${trimmedResult} expected ${expectedOutput}`); // Log the actual output for debugging
+            console.log(`Actual Output: ${typeof trimmedResult} expected ${typeof expectedOutput}`);
             let parseOutput = JSON.parse(trimmedResult)
             if (JSON.stringify(expectedOutput) === JSON.stringify(parseOutput)) {    //why  ask someone 
               results.push({ testCase, youroutput : trimmedResult , passed: true });
@@ -104,7 +104,7 @@ const crypto = require('crypto');
       
       async function runFileWithTimeout(fileName, language, timeoutMs) {
         return new Promise((resolve, reject) => {
-          const command = language === 'py' ? `python ${fileName}` : `java ${fileName.replace('.java', '')}`;
+          const command = language === 'py' ? `python3 ${fileName}` : `java ${fileName.replace('.java', '')}`;
           const process = exec(command, { timeout: timeoutMs }, (error, stdout, stderr) => {
             if (error) {
               if (error.killed) {
